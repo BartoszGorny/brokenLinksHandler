@@ -5,4 +5,7 @@
 ### IntelliJ IDEA ###
 /.idea/
 
+### ignore log files ###
+/.logs/
+
 
