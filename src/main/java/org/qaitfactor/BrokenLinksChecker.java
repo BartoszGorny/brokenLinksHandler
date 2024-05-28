@@ -29,8 +29,8 @@ public class BrokenLinksChecker {
         // Initialize the browser and pass options
         WebDriver driver = new ChromeDriver(options);
 
-        // open webpage
-        driver.get("https://njrusmc.net/blog/blog.html");
+        // open webpage example
+        driver.get("https://testpages.eviltester.com");
 
         // Find all links on the page
         List<WebElement> links = driver.findElements(By.tagName("a"));
