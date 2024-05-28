@@ -1,5 +1,7 @@
 package org.qaitfactor;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -15,6 +17,9 @@ import java.util.List;
  * Simple Broken Links Checker
  */
 public class BrokenLinksChecker {
+
+    private static final Logger logger = LogManager.getLogger(BrokenLinksChecker.class);
+
     public static void main(String[] args) {
 
         // set ChromeDriver options
@@ -30,14 +35,14 @@ public class BrokenLinksChecker {
         // Find all links on the page
         List<WebElement> links = driver.findElements(By.tagName("a"));
 
-        System.out.println("Number of links found: " + links.size());
+        logger.info("Number of links found: " + links.size());
 
         for (WebElement link : links) {
             String url = link.getAttribute("href");
             if (url != null && !url.isEmpty()) {
                 checkLink(url);
             } else {
-                System.out.println("Invalid link: " + url);
+                logger.warn("Invalid link: " + url);
             }
         }
         // Close the browser
@@ -59,12 +64,12 @@ public class BrokenLinksChecker {
             int responseCode = httpConn.getResponseCode();
 
             if (responseCode >= 400) {
-                System.out.println(url + " is broken. Response code: " + responseCode);
+                logger.error(url + " is broken. Response code: " + responseCode);
             } else {
-                System.out.println(url + " is valid. Response code: " + responseCode);
+                logger.info(url + " is valid. Response code: " + responseCode);
             }
         } catch (IOException e) {
-            System.out.println(url + " is broken. Exception: " + e.getMessage());
+            logger.error(url + " is broken. Exception: " + e.getMessage());
         }
     }
 }
